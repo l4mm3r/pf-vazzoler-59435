@@ -43,7 +43,7 @@ export class UserDialogComponent {
       this.matDialogRef.close({
         ...this.userForm.value,
         createdAt: new Date(),
-        id: Math.random().toString(36).substr(2, 5),});
+        id: this.data?.editingUser ? this.data?.editingUser.id : Math.random().toString(36).substr(2, 5),});
     }
   }
 }
