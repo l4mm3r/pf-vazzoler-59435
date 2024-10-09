@@ -42,8 +42,8 @@ export class UserDialogComponent {
     } else {
       this.matDialogRef.close({
         ...this.userForm.value,
-        createdAt: new Date(),
-        id: this.data?.editingUser ? this.data?.editingUser.id : Math.random().toString(36).substr(2, 5),});
+        createdAt: this.data?.editingUser ? this.data!.editingUser!.createdAt : new Date(),
+        id: this.data?.editingUser ? this.data!.editingUser!.id : Math.random().toString(36).substr(2, 5),});
     }
   }
 }
