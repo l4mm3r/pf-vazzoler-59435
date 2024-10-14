@@ -1,46 +1,81 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { User } from './models';
-
-
-const ELEMENT_DATA: User[] = [
-
-]
+import { UsersService } from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
 })
-
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'createdAt', 'actions'];
-  dataSource = ELEMENT_DATA;
+  dataSource: User[] = [];
 
-  constructor(private matDialog: MatDialog) {}
+  constructor(
+    private matDialog: MatDialog,
+    private usersService: UsersService,
+  ) {}
 
-  onDelete(id: string){
-    this.dataSource = this.dataSource.filter((user) => user.id !== id);
+  isLoading = false;
+
+  onDelete(id: string) {
+    this.isLoading = true;
+    this.usersService.removeUserById(id).subscribe({
+      next: (users) => {
+        this.dataSource = users;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
-    openModal(editingUser?: User): void {
-      this.matDialog
-      .open(UserDialogComponent, { 
-        data: {editingUser} })
-        .afterClosed()
-        .subscribe({
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  loadUsers(): void {
+    this.isLoading = true;
+    this.usersService.getUseres().subscribe({
+      next: (users) => {
+        this.dataSource = users;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
+  }
+
+  openModal(editingUser?: User): void {
+    this.matDialog
+      .open(UserDialogComponent, {
+        data: { editingUser },
+      })
+      .afterClosed()
+      .subscribe({
         next: (result) => {
-
-          if(!!result) {
-
+          if (!!result) {
             if (editingUser) {
-              this.dataSource = this.dataSource.map((user) => user.id === editingUser.id ? { ...user, ...result} : user);
+              this.handleUpdate(editingUser.id, result);
             } else {
-            this.dataSource = [...this.dataSource, result];
+              this.dataSource = [...this.dataSource, result];
             }
           }
         },
       });
-    }
+  }
+
+  handleUpdate(id: string, update: User): void {
+    this.isLoading = true;
+    this.usersService.updateUserById(id, update).subscribe({
+      next: (users) => {
+        this.dataSource = users;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
+  }
 }

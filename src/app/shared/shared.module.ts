@@ -13,19 +13,13 @@ import { MatTableModule } from '@angular/material/table';
 import { UserFullNamePipe } from './pipes/user-full-name.pipe';
 import { RepeatDirective } from './directives/repeat.directive';
 import { HeaderSizeDirective } from './directives/header-size.directive';
-
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [
-    UserFullNamePipe,
-    RepeatDirective,
-    HeaderSizeDirective
-  ],
-  imports: [
-    CommonModule
-  ],
+  declarations: [UserFullNamePipe, RepeatDirective, HeaderSizeDirective],
+  imports: [CommonModule],
   exports: [
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
@@ -38,7 +32,7 @@ import { HeaderSizeDirective } from './directives/header-size.directive';
     MatTableModule,
     UserFullNamePipe,
     RepeatDirective,
-    HeaderSizeDirective
-  ]
+    HeaderSizeDirective,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}
