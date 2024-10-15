@@ -14,11 +14,13 @@ import { UserFullNamePipe } from './pipes/user-full-name.pipe';
 import { RepeatDirective } from './directives/repeat.directive';
 import { HeaderSizeDirective } from './directives/header-size.directive';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [UserFullNamePipe, RepeatDirective, HeaderSizeDirective],
   imports: [CommonModule],
   exports: [
+    MatListModule,
     MatProgressSpinnerModule,
     MatButtonModule,
     MatIconModule,
