@@ -4,6 +4,8 @@
 }
 
 .side-nav {
+  border-radius: 0px;
+  background-color: #e4e0e1;
   padding-left: 30px;
   padding-top: 150px;
   max-width: 200px;
@@ -13,5 +15,9 @@
 }
 
 .example-sidenav-content {
-  padding: 20px;
+  /* padding: 20px; */
+
+  mat-toolbar {
+    background-color: #e4e0e1;
+  }
 }

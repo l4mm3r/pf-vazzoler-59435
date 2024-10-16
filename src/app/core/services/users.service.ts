@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../features/dashboard/users/models';
+import { Student } from '../../features/dashboard/users/models';
 import { Observable, of, delay } from 'rxjs';
 
-let DATABASE: User[] = [
+let studentsDATABASE: Student[] = [
   {
     id: 'asdf123',
     firstName: 'Edgar',
@@ -18,29 +18,29 @@ let DATABASE: User[] = [
 export class UsersService {
   constructor() {}
 
-  getUseres(): Observable<User[]> {
+  getUseres(): Observable<Student[]> {
     return new Observable((observer) => {
       setInterval(() => {
-        observer.next(DATABASE);
+        observer.next(studentsDATABASE);
         observer.complete();
       }, 2000);
     });
   }
 
-  removeUserById(id: string): Observable<User[]> {
-    DATABASE = DATABASE.filter((user) => user.id !== id);
+  removeUserById(id: string): Observable<Student[]> {
+    studentsDATABASE = studentsDATABASE.filter((user) => user.id !== id);
 
-    return of(DATABASE).pipe(delay(1000));
+    return of(studentsDATABASE).pipe(delay(1000));
   }
 
-  updateUserById(id: string, update: Partial<User>) {
-    DATABASE = DATABASE.map((user) =>
+  updateUserById(id: string, update: Partial<Student>) {
+    studentsDATABASE = studentsDATABASE.map((user) =>
       user.id === id ? { ...user, ...update } : user,
     );
 
-    return new Observable<User[]>((observer) => {
+    return new Observable<Student[]>((observer) => {
       setInterval(() => {
-        observer.next(DATABASE);
+        observer.next(studentsDATABASE);
         observer.complete();
       }, 1000);
     });

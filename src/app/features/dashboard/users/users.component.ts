@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
-import { User } from './models';
+import { Student } from './models';
 import { UsersService } from '../../../core/services/users.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { UsersService } from '../../../core/services/users.service';
 })
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'createdAt', 'actions'];
-  dataSource: User[] = [];
+  dataSource: Student[] = [];
 
   constructor(
     private matDialog: MatDialog,
@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  openModal(editingUser?: User): void {
+  openModal(editingUser?: Student): void {
     this.matDialog
       .open(UserDialogComponent, {
         data: { editingUser },
@@ -67,7 +67,7 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  handleUpdate(id: string, update: User): void {
+  handleUpdate(id: string, update: Student): void {
     this.isLoading = true;
     this.usersService.updateUserById(id, update).subscribe({
       next: (users) => {

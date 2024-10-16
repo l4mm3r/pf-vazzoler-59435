@@ -1,37 +1,36 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { User } from '../models';
+import { Student } from '../models';
 
 interface UserDialogData {
-  editingUser?: User;
+  editingUser?: Student;
 }
 
 @Component({
   selector: 'app-user-dialog',
   templateUrl: './user-dialog.component.html',
-  styles: ``
+  styles: ``,
 })
 export class UserDialogComponent {
   userForm: FormGroup;
 
   constructor(
-    private matDialogRef: MatDialogRef<UserDialogComponent>, 
+    private matDialogRef: MatDialogRef<UserDialogComponent>,
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data?: UserDialogData
+    @Inject(MAT_DIALOG_DATA) public data?: UserDialogData,
   ) {
+    this.userForm = this.formBuilder.group({
+      firstName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]],
+    });
 
-  this.userForm = this.formBuilder.group({
-    firstName: [null, [Validators.required]],
-    lastName: [null, [Validators.required]],
-    email: [null, [Validators.required, Validators.email]],
-  });
-
-  this.patchFormValue();
-}
+    this.patchFormValue();
+  }
 
   patchFormValue() {
-    if (this.data?.editingUser){
+    if (this.data?.editingUser) {
       this.userForm.patchValue(this.data?.editingUser);
     }
   }
@@ -42,8 +41,13 @@ export class UserDialogComponent {
     } else {
       this.matDialogRef.close({
         ...this.userForm.value,
-        createdAt: this.data?.editingUser ? this.data!.editingUser!.createdAt : new Date(),
-        id: this.data?.editingUser ? this.data!.editingUser!.id : Math.random().toString(36).substr(2, 5),});
+        createdAt: this.data?.editingUser
+          ? this.data!.editingUser!.createdAt
+          : new Date(),
+        id: this.data?.editingUser
+          ? this.data!.editingUser!.id
+          : Math.random().toString(36).substr(2, 7),
+      });
     }
   }
 }

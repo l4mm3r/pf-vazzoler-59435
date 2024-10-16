@@ -5,7 +5,7 @@
       <a href="" mat-list-item>Inicio</a>
       <a href="" mat-list-item>Alumnos</a>
       <a href="" mat-list-item>Cursos</a>
-      <a href="" mat-list-item>Cerrar Sesion</a>
+      <a (click)="logout()" mat-list-item>Cerrar Sesion</a>
     </mat-nav-list>
   </mat-drawer>
 
@@ -23,7 +23,6 @@
       <span>Gr00t.-</span>
       <span class="example-spacer"></span>
     </mat-toolbar>
-
-    <app-users></app-users>
   </div>
+  <app-users></app-users>
 </mat-drawer-container>
