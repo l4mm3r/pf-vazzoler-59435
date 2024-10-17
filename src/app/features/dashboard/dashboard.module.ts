@@ -7,7 +7,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { UsersModule } from './users/users.module';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { SharedModule } from '../../shared/shared.module';
     DashboardRoutingModule,
     MatSidenavModule,
     MatToolbarModule,
-    UsersModule,
     SharedModule,
   ],
   exports: [DashboardComponent],
