@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './features/auth/register/register.component';
-import { LoginComponent } from './features/auth/login/login.component';
 import { AuthComponent } from './features/auth/auth.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 
@@ -9,20 +7,20 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule,
+      ),
   },
   {
     path: 'auth',
     component: AuthComponent,
-    children: [
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
-      {
-        path: 'register',
-        component: RegisterComponent,
-      },
-    ],
+    loadChildren: () =>
+      import('./features/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: '**',
+    redirectTo: 'auth',
   },
 ];
 

@@ -2,8 +2,22 @@
   <!-- SIDEBAR -->
   <mat-drawer #drawer class="side-nav" mode="side">
     <mat-nav-list>
-      <a href="" mat-list-item>Inicio</a>
-      <a href="" mat-list-item>Alumnos</a>
+      <a
+        routerLinkActive
+        #homeLink="routerLinkActive"
+        [activated]="homeLink.isActive"
+        routerLink="home"
+        mat-list-item
+        >Inicio</a
+      >
+      <a
+        routerLinkActive
+        #studentsLink="routerLinkActive"
+        [activated]="studentsLink.isActive"
+        routerLink="students"
+        mat-list-item
+        >Alumnos</a
+      >
       <a href="" mat-list-item>Cursos</a>
       <a (click)="logout()" mat-list-item>Cerrar Sesion</a>
     </mat-nav-list>
@@ -24,5 +38,5 @@
       <span class="example-spacer"></span>
     </mat-toolbar>
   </div>
-  <app-users></app-users>
+  <router-outlet></router-outlet>
 </mat-drawer-container>

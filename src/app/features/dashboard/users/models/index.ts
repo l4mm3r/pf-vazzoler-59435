@@ -5,4 +5,3 @@ export interface Student {
   email: string;
   createdAt: Date;
 }
-
