@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { StudentDialogComponent } from './student-dialog/student-dialog.component';
 import { Student } from './models';
-import { UsersService } from '../../../core/services/users.service';
+import { StudentsService } from '../../../core/services/students.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrl: './users.component.scss',
+  selector: 'app-students',
+  templateUrl: './students.component.html',
+  styleUrl: './students.component.scss',
 })
-export class UsersComponent implements OnInit {
+export class StudentsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'email', 'createdAt', 'actions'];
   dataSource: Student[] = [];
 
   constructor(
     private matDialog: MatDialog,
-    private usersService: UsersService,
+    private studentsService: StudentsService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) {}
@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit {
 
   onDelete(id: string) {
     this.isLoading = true;
-    this.usersService.removeUserById(id).subscribe({
+    this.studentsService.removeUserById(id).subscribe({
       next: (users) => {
         this.dataSource = users;
       },
@@ -49,7 +49,7 @@ export class UsersComponent implements OnInit {
 
   loadUsers(): void {
     this.isLoading = true;
-    this.usersService.getUsers().subscribe({
+    this.studentsService.getStudents().subscribe({
       next: (users) => {
         this.dataSource = users;
       },
@@ -68,7 +68,7 @@ export class UsersComponent implements OnInit {
 
   openModal(editingUser?: Student): void {
     this.matDialog
-      .open(UserDialogComponent, { data: { editingUser } })
+      .open(StudentDialogComponent, { data: { editingUser } })
       .afterClosed()
       .subscribe({
         next: (result) => {
@@ -85,7 +85,7 @@ export class UsersComponent implements OnInit {
 
   handleUpdate(id: string, update: Student): void {
     this.isLoading = true;
-    this.usersService.updateUserById(id, update).subscribe({
+    this.studentsService.updateUserById(id, update).subscribe({
       next: (users) => {
         this.dataSource = users;
       },

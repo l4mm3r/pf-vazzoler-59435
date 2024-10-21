@@ -8,15 +8,15 @@ interface UserDialogData {
 }
 
 @Component({
-  selector: 'app-user-dialog',
-  templateUrl: './user-dialog.component.html',
+  selector: 'app-student-dialog',
+  templateUrl: './student-dialog.component.html',
   styles: ``,
 })
-export class UserDialogComponent {
+export class StudentDialogComponent {
   userForm: FormGroup;
 
   constructor(
-    private matDialogRef: MatDialogRef<UserDialogComponent>,
+    private matDialogRef: MatDialogRef<StudentDialogComponent>,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data?: UserDialogData,
   ) {

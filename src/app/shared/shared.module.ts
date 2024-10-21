@@ -10,14 +10,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
-import { UserFullNamePipe } from './pipes/user-full-name.pipe';
+import { StudentFullNamePipe } from './pipes/student-full-name.piper';
 import { RepeatDirective } from './directives/repeat.directive';
 import { HeaderSizeDirective } from './directives/header-size.directive';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-  declarations: [UserFullNamePipe, RepeatDirective, HeaderSizeDirective],
+  declarations: [StudentFullNamePipe, RepeatDirective, HeaderSizeDirective],
   imports: [CommonModule],
   exports: [
     MatListModule,
@@ -32,7 +32,7 @@ import { MatListModule } from '@angular/material/list';
     MatDatepickerModule,
     ReactiveFormsModule,
     MatTableModule,
-    UserFullNamePipe,
+    StudentFullNamePipe,
     RepeatDirective,
     HeaderSizeDirective,
   ],

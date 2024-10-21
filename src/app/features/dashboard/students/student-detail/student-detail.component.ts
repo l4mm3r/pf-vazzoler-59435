@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UsersService } from '../../../../core/services/users.service';
+import { StudentsService } from '../../../../core/services/students.service';
 import { Student } from '../models';
 
 @Component({
@@ -8,7 +8,7 @@ import { Student } from '../models';
   templateUrl: './student-detail.component.html',
   styleUrl: './student-detail.component.scss',
 })
-export class StudentDetailComponent implements OnInit{
+export class StudentDetailComponent implements OnInit {
   idStudent?: string;
   isLoading = false;
 
@@ -16,18 +16,20 @@ export class StudentDetailComponent implements OnInit{
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private userService: UsersService,
+    private studentService: StudentsService,
   ) {
     this.idStudent = activatedRoute.snapshot.params['id'];
   }
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.userService.getById(this.activatedRoute.snapshot.params['id']).subscribe({
-      next: (student) => {
-        this.isLoading = false;
-        this.student = student;
-      },
-    })
+    this.studentService
+      .getById(this.activatedRoute.snapshot.params['id'])
+      .subscribe({
+        next: (student) => {
+          this.isLoading = false;
+          this.student = student;
+        },
+      });
   }
 }

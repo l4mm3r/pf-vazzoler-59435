@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Student } from '../../features/dashboard/users/models';
+import { Student } from '../../features/dashboard/students/models';
 import { Observable, of, delay, map } from 'rxjs';
 
 let studentsDATABASE: Student[] = [
@@ -15,14 +15,16 @@ let studentsDATABASE: Student[] = [
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class StudentsService {
   constructor() {}
 
-getById(id: string): Observable<Student | undefined> {
-  return this.getUsers().pipe((map((users) => users.find((user) => user.id === id))));
-}
+  getById(id: string): Observable<Student | undefined> {
+    return this.getStudents().pipe(
+      map((users) => users.find((user) => user.id === id)),
+    );
+  }
 
-  getUsers(): Observable<Student[]> {
+  getStudents(): Observable<Student[]> {
     return new Observable((observer) => {
       setInterval(() => {
         observer.next(studentsDATABASE);
