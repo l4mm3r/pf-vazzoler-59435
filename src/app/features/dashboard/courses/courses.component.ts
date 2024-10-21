@@ -7,20 +7,11 @@ import { Course } from './models';
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
 })
-export class CoursesComponent implements OnInit {
+export class CoursesComponent{
   courses: Course[] = [];
+
+  isLoading = false;
 
   constructor(private coursesService: CoursesService) {}
 
-  ngOnInit(): void {
-    this.loadCourses();
-  }
-
-  loadCourses(): void {
-    this.coursesService.getCourses().subscribe({
-      next: (courses) => {
-        this.courses = courses;
-      },
-    });
-  }
 }
