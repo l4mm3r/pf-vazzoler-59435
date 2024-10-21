@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Course } from './models';
+import { Course } from '../models';
 
 @Component({
   selector: 'app-courses-table',

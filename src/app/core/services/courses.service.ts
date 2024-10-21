@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Course } from '../../features/dashboard/courses/courses-table/models';
+import { Course } from '../../features/dashboard/courses/models';
 import { Observable, of, delay, map } from 'rxjs';
 
 let coursesDATABASE: Course[] = [
