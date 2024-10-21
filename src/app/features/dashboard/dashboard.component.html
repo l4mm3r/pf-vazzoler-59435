@@ -18,7 +18,14 @@
         mat-list-item
         >Alumnos</a
       >
-      <a href="" mat-list-item>Cursos</a>
+      <a
+        routerLinkActive
+        #cursosLink="routerLinkActive"
+        [activated]="cursosLink.isActive"
+        routerLink="courses"
+        mat-list-item
+        >Cursos</a
+      >
       <a (click)="logout()" mat-list-item>Cerrar Sesion</a>
     </mat-nav-list>
   </mat-drawer>
