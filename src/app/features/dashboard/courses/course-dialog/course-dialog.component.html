@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>
+  {{ data?.editingCourse ? "Editar curso" : "Crear curso" }}
+</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="courseForm" class="w-100">
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del curso</mat-label>
+          <input formControlName="courseName" matInput type="text" />
+          <mat-error>
+            @if (courseForm.get("courseName")?.hasError("required")) { Campo
+            obligatorio }
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-6">
+        <mat-form-field appearance="fill">
+          <mat-label>Profesor</mat-label>
+          <input formControlName="courseProfessor" matInput type="text" />
+          <mat-error>
+            @if (courseForm.get("courseProfessor")?.hasError("required")) {
+            Campo obligatorio }
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+  <div class="mat-dialog-actions d-flex flex-row-reverse">
+    <button mat-button (click)="onSave()">Guardar</button>
+    <button mat-button mat-dialog-close>Cancelar</button>
+  </div>
+</div>

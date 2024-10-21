@@ -1,8 +1,33 @@
 <mat-drawer-container class="bars-container" autosize>
   <!-- SIDEBAR -->
   <mat-drawer #drawer class="side-nav" mode="side">
-    <h6 appHeaderSize>Alumnos</h6>
-    <h6 appHeaderSize>Cursos</h6>
+    <mat-nav-list>
+      <a
+        routerLinkActive
+        #homeLink="routerLinkActive"
+        [activated]="homeLink.isActive"
+        routerLink="home"
+        mat-list-item
+        >Inicio</a
+      >
+      <a
+        routerLinkActive
+        #studentsLink="routerLinkActive"
+        [activated]="studentsLink.isActive"
+        routerLink="students"
+        mat-list-item
+        >Alumnos</a
+      >
+      <a
+        routerLinkActive
+        #cursosLink="routerLinkActive"
+        [activated]="cursosLink.isActive"
+        routerLink="courses"
+        mat-list-item
+        >Cursos</a
+      >
+      <a (click)="logout()" mat-list-item>Cerrar Sesion</a>
+    </mat-nav-list>
   </mat-drawer>
 
   <!-- CONTENT -->
@@ -19,7 +44,6 @@
       <span>Gr00t.-</span>
       <span class="example-spacer"></span>
     </mat-toolbar>
-
-    <app-users></app-users>
   </div>
+  <router-outlet></router-outlet>
 </mat-drawer-container>
