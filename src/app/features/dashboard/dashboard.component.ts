@@ -19,7 +19,6 @@ export class DashboardComponent {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['auth', 'login']);
+    this.authService.logout();
   }
 }
