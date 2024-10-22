@@ -1,34 +1,34 @@
-<h1 mat-dialog-title class="p-2 text-center">Iniciar Sesion</h1>
+<h3 mat-dialog-title class="p-2 text-center">Iniciar Sesion</h3>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="row p-2">
-  <div class="col-12">
-    <mat-form-field class="w-100">
-      <mat-label>Email</mat-label>
+    <div class="col-12">
+        <mat-form-field class="w-100">
+            <mat-label>Email</mat-label>
 
-      <input type="text" formControlName="email" matInput />
-    </mat-form-field>
-  </div>
+            <input type="text" formControlName="email" matInput />
+        </mat-form-field>
+    </div>
 
-  <div class="col-12">
-    <mat-form-field class="w-100">
-      <mat-label>Contraseña</mat-label>
-      <input
-        [type]="passwordInputType"
-        formControlName="password"
-        type="password"
-        matInput
-      />
-      <button
-        type="button"
-        mat-icon-button
-        matSuffix
-        (click)="togglePasswordVisibility()"
-      >
-        <mat-icon>visibility</mat-icon>
-      </button>
-    </mat-form-field>
-  </div>
+    <div class="col-12">
+        <mat-form-field class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input
+                [type]="passwordInputType"
+                formControlName="password"
+                type="password"
+                matInput
+            />
+            <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="togglePasswordVisibility()"
+            >
+                <mat-icon>visibility</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
 
-  <div class="col-12">
-    <button mat-flat-button type="submit" class="w-100">Ingresar</button>
-  </div>
+    <div class="col-12">
+        <button mat-flat-button type="submit" class="w-100">Ingresar</button>
+    </div>
 </form>

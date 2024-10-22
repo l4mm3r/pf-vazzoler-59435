@@ -10,6 +10,7 @@ const FAKE_STUDENT: Student = {
     firstName: 'Admin',
     lastName: 'Admin',
     id: 'asdf123',
+    token: 'asdj121414kafjaxkv14',
     createdAt: new Date(),
 }
 
@@ -28,11 +29,24 @@ const FAKE_STUDENT: Student = {
         }
 
         this._authStudent$.next(FAKE_STUDENT);
+        localStorage.setItem('token', FAKE_STUDENT.token);
         return of(FAKE_STUDENT);
     }
 
     logout() {
         this._authStudent$.next(null);
         this.router.navigate(['auth', 'login']);
+        localStorage.removeItem('token');
+    }
+
+    verifyToken(): Observable<boolean> {
+        const isValid = localStorage.getItem('token') === FAKE_STUDENT.token;
+        if (!isValid) {
+            this._authStudent$.next(null);
+            this.router.navigate(['auth', 'login']);
+        } else {
+            this._authStudent$.next(FAKE_STUDENT);
+        }
+        return of(isValid);
     }
 }

@@ -1,59 +1,61 @@
 <mat-drawer-container class="bars-container" autosize>
-  <!-- SIDEBAR -->
-  <mat-drawer #drawer class="side-nav" mode="side">
-    <mat-nav-list>
-      <a
-        routerLinkActive
-        #homeLink="routerLinkActive"
-        [activated]="homeLink.isActive"
-        routerLink="home"
-        mat-list-item
-        >Inicio</a
-      >
-      <a
-        routerLinkActive
-        #studentsLink="routerLinkActive"
-        [activated]="studentsLink.isActive"
-        routerLink="students"
-        mat-list-item
-        >Alumnos</a
-      >
-      <a
-        routerLinkActive
-        #cursosLink="routerLinkActive"
-        [activated]="cursosLink.isActive"
-        routerLink="courses"
-        mat-list-item
-        >Cursos</a
-      >
-      <a (click)="logout()" mat-list-item>Cerrar Sesion</a>
-    </mat-nav-list>
-  </mat-drawer>
+    <!-- SIDEBAR -->
+    <mat-drawer #drawer class="side-nav" mode="side">
+        <mat-nav-list>
+            <a
+                routerLinkActive
+                #homeLink="routerLinkActive"
+                [activated]="homeLink.isActive"
+                routerLink="home"
+                mat-list-item
+                >Inicio</a
+            >
+            <a
+                routerLinkActive
+                #studentsLink="routerLinkActive"
+                [activated]="studentsLink.isActive"
+                routerLink="students"
+                mat-list-item
+                >Alumnos</a
+            >
+            <a
+                routerLinkActive
+                #cursosLink="routerLinkActive"
+                [activated]="cursosLink.isActive"
+                routerLink="courses"
+                mat-list-item
+                >Cursos</a
+            >
+            <a (click)="logout()" mat-list-item>Cerrar Sesion</a>
+        </mat-nav-list>
+    </mat-drawer>
 
-  <!-- CONTENT -->
-  <div class="example-sidenav-content">
-    <mat-toolbar>
-      <div
-        class="d-flex justify-content-between align-items-center h-100 w-100"
-      >
-        <div class="d-flex align-items-center">
-          <button
-            mat-icon-button
-            class="example-icon"
-            aria-label="Example icon-button with menu icon"
-            (click)="drawer.toggle()"
-          >
-            <mat-icon>menu</mat-icon>
-          </button>
-          <span>Gr00t.-</span>
-        </div>
-        <div *ngIf="authStudent$ | async; let authStudent">
-          <p class="m-0 fs-6 fst-italic fw-light">
-            {{ authStudent?.firstName + " " + authStudent?.lastName }}
-          </p>
-        </div>
-      </div>
-    </mat-toolbar>
-  </div>
-  <router-outlet></router-outlet>
+    <!-- CONTENT -->
+    <div class="example-sidenav-content">
+        <mat-toolbar>
+            <div
+                class="d-flex justify-content-between align-items-center h-100 w-100"
+            >
+                <div class="d-flex align-items-center">
+                    <button
+                        mat-icon-button
+                        class="example-icon"
+                        aria-label="Example icon-button with menu icon"
+                        (click)="drawer.toggle()"
+                    >
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                    <span>Gr00t.-</span>
+                </div>
+                <div *ngIf="authStudent$ | async; let authStudent">
+                    <p class="m-0 fs-6 fst-italic fw-light">
+                        {{
+                            authStudent?.firstName + " " + authStudent?.lastName
+                        }}
+                    </p>
+                </div>
+            </div>
+        </mat-toolbar>
+    </div>
+    <router-outlet></router-outlet>
 </mat-drawer-container>

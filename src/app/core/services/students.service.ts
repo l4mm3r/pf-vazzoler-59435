@@ -9,7 +9,8 @@ let studentsDATABASE: Student[] = [
     lastName: 'Vazquez',
     email: 'l5S6v@example.com',
     createdAt: new Date(),
-    password: 'admin'
+    password: 'admin',
+    token: 'as4124a123aag325v'
   },
 ];
 
