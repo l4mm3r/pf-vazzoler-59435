@@ -9,6 +9,7 @@ let studentsDATABASE: Student[] = [
     lastName: 'Vazquez',
     email: 'l5S6v@example.com',
     createdAt: new Date(),
+    password: 'admin'
   },
 ];
 
