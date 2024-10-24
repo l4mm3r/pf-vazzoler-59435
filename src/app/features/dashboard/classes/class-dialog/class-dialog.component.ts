@@ -2,6 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { Class } from '../models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CoursesService } from '../../../../core/services/courses.service';
+import { Observable } from 'rxjs';
+import { Course } from '../../courses/models';
 
 interface ClassDialogData {
   editingClass?: Class
@@ -15,13 +18,16 @@ interface ClassDialogData {
 })
 export class ClassDialogComponent {
 classForm: FormGroup;
+courses$: Observable<Course[]>;
 
 
 constructor(
   private matDialogRef: MatDialogRef<ClassDialogComponent>,
   private formBuilder: FormBuilder,
+  private coursesService: CoursesService,
   @Inject(MAT_DIALOG_DATA) public data?: ClassDialogData
 ){
+  this.courses$ = this.coursesService.getCourses();
   this.classForm = this.formBuilder.group({
     className: [null, [Validators.required]],
     classCourse: [null, [Validators.required]],

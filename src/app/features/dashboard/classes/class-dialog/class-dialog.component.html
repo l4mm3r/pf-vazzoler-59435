@@ -19,7 +19,14 @@
             <div class="col-6">
                 <mat-form-field appearance="fill">
                     <mat-label>Curso</mat-label>
-                    <input formControlName="classCourse" matInput type="text" />
+                    <mat-select formControlName="classCourse">
+                        <mat-option
+                            [value]="course.courseName"
+                            *ngFor="let course of courses$ | async"
+                        >
+                            {{ course.courseName }}
+                        </mat-option>
+                    </mat-select>
                     <mat-error>
                         @if (classForm.get("classCourse")?.hasError("required"))
                         { Campo obligatorio }
