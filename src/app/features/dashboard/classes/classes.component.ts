@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassesService } from '../../../core/services/classes.service';
 import { Class } from './models';
-import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ClassDialogComponent } from './class-dialog/class-dialog.component';
 
 @Component({
