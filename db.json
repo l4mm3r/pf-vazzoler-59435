@@ -1,0 +1,48 @@
+{
+  "students": [
+    {
+      "id": "6993",
+      "firstName": "Eduardo",
+      "lastName": "Vazzoler",
+      "email": "eduvazzo@mail.com",
+      "password": "123456",
+      "role": "ADMIN",
+      "token": "asdfh3482375aldfh8nv124sdg08925f23f23f",
+      "createdAt": "2024-10-28"
+    }
+  ],
+  "courses": [
+    {
+      "id": "adhdaw131",
+      "courseName": "Angular",
+      "courseProfessor": "Caucho Flojo"
+    },
+    {
+      "id": "asdf1h12",
+      "courseName": "C++",
+      "courseProfessor": "Hector Paniagua"
+    },
+    {
+      "id": "asfhgr314",
+      "courseName": "C#",
+      "courseProfessor": "Martin Rios"
+    }
+  ],
+  "classes": [
+    {
+      "id": "gergk1234",
+      "className": "Promesas y Librerias",
+      "classCourse": "Angular"
+    },
+    {
+      "id": "dhdhru123",
+      "className": "Pipes y Servicios",
+      "classCourse": "c++"
+    },
+    {
+      "id": "fhfhefa12",
+      "className": "Clases de POO",
+      "classCourse": "C#"
+    }
+  ]
+}

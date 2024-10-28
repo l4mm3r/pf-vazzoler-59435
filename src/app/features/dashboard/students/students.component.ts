@@ -44,10 +44,10 @@ export class StudentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.loadStudents();
   }
 
-  loadUsers(): void {
+  loadStudents(): void {
     this.isLoading = true;
     this.studentsService.getStudents().subscribe({
       next: (users) => {
@@ -76,7 +76,9 @@ export class StudentsComponent implements OnInit {
             if (editingUser) {
               this.handleUpdate(editingUser.id, result);
             } else {
-              this.dataSource = [...this.dataSource, result];
+              this.studentsService.createStudent(result).subscribe({
+                next: () => this.loadStudents(),
+              });
             }
           }
         },

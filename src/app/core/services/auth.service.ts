@@ -1,36 +1,50 @@
 import { Injectable } from '@angular/core';
 import { AuthData } from '../../features/auth/models';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError, map } from 'rxjs';
 import { Student } from '../../features/dashboard/students/models';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
-const FAKE_STUDENT: Student = {
-    email: 'admin@mail.com',
-    password: 'admin',
-    firstName: 'Admin',
-    lastName: 'Admin',
-    id: 'asdf123',
-    token: 'asdj121414kafjaxkv14',
-    createdAt: new Date(),
-}
-
-
-@Injectable({ providedIn: 'root' }) export class AuthService {
-
+@Injectable({ providedIn: 'root' })
+export class AuthService {
     private _authStudent$ = new BehaviorSubject<null | Student>(null);
-    
+
     public authStudent$ = this._authStudent$.asObservable();
 
-    constructor(private router: Router) { }
+    private BaseURL = environment.baseURL
+
+    constructor(
+        private router: Router,
+        private httpClient: HttpClient,
+    ) {}
+
+    private handleAuthentication(students: Student[]): Student | null {
+                    if (!!students[0]) {
+                        //success
+                        localStorage.setItem('token', students[0].token);
+                        this._authStudent$.next(students[0]);
+                        return students[0];
+                    } else {
+                        return null;
+                    }
+    }
 
     login(data: AuthData): Observable<Student> {
-        if (data.email != FAKE_STUDENT.email || data.password != FAKE_STUDENT.password) {
-            return throwError(() => new Error('Credenciales invalidas'));
-        }
-
-        this._authStudent$.next(FAKE_STUDENT);
-        localStorage.setItem('token', FAKE_STUDENT.token);
-        return of(FAKE_STUDENT);
+        return this.httpClient
+            .get<
+                Student[]
+            >(`${this.BaseURL}/students?email=${data.email}&password=${data.password}`)
+            .pipe(
+                map((students) => {
+                    const student =this.handleAuthentication(students)
+                    if (student) {
+                        return student;
+                    } else {
+                        throw throwError(() => new Error('Credenciales incorrectas'));
+                    }
+                })
+            );
     }
 
     logout() {
@@ -40,13 +54,15 @@ const FAKE_STUDENT: Student = {
     }
 
     verifyToken(): Observable<boolean> {
-        const isValid = localStorage.getItem('token') === FAKE_STUDENT.token;
-        if (!isValid) {
-            this._authStudent$.next(null);
-            this.router.navigate(['auth', 'login']);
-        } else {
-            this._authStudent$.next(FAKE_STUDENT);
+        return this.httpClient
+            .get<Student[]>(
+                `${this.BaseURL}/students?token=${localStorage.getItem('token')}`
+            )
+            .pipe(
+                map((students) => {
+                    const student = this.handleAuthentication(students);
+                    return !!student
+                })
+            )
         }
-        return of(isValid);
-    }
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../../features/dashboard/students/models';
 import { Observable, of, delay, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 let studentsDATABASE: Student[] = [
   {
@@ -10,7 +12,8 @@ let studentsDATABASE: Student[] = [
     email: 'l5S6v@example.com',
     createdAt: new Date(),
     password: 'admin',
-    token: 'as4124a123aag325v'
+    token: 'as4124a123aag325v',
+    role: 'admin',
   },
 ];
 
@@ -18,27 +21,31 @@ let studentsDATABASE: Student[] = [
   providedIn: 'root',
 })
 export class StudentsService {
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
+
+  private baseURL = environment.baseURL;
 
   getById(id: string): Observable<Student | undefined> {
     return this.getStudents().pipe(
-      map((users) => users.find((user) => user.id === id)),
+      map((students) => students.find((students) => students.id === id)),
     );
   }
 
   getStudents(): Observable<Student[]> {
-    return new Observable((observer) => {
-      setInterval(() => {
-        observer.next(studentsDATABASE);
-        observer.complete();
-      }, 2000);
-    });
+    return this.httpClient.get<Student[]>(`${this.baseURL}/students`)
   }
 
-  removeUserById(id: string): Observable<Student[]> {
-    studentsDATABASE = studentsDATABASE.filter((user) => user.id !== id);
+  createStudent(data: Omit<Student, 'id'>): Observable<Student> {
+    return this.httpClient.post<Student>(`${this.baseURL}/students`, {
+      ...data,
+      token: Math.random().toString(36).substr(2, 7),
+      createdAt: new Date().toISOString(),
+    })
+  }
 
-    return of(studentsDATABASE).pipe(delay(1000));
+
+  removeUserById(id: string): Observable<Student[]> {
+    return this.httpClient.delete<Student[]>(`${this.baseURL}/students/${id}`)
   }
 
   updateUserById(id: string, update: Partial<Student>) {
