@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../../features/dashboard/students/models';
-import { Observable, of, delay, map } from 'rxjs';
+import { Observable, of, delay, map, switchMap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -45,7 +45,8 @@ export class StudentsService {
 
 
   removeUserById(id: string): Observable<Student[]> {
-    return this.httpClient.delete<Student[]>(`${this.baseURL}/students/${id}`)
+    return this.httpClient.delete<Student[]>(`${this.baseURL}/students/${id}`).pipe(
+      switchMap(() => this.getStudents()),)
   }
 
   updateUserById(id: string, update: Partial<Student>) {
