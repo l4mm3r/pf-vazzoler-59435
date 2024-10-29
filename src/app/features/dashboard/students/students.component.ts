@@ -24,7 +24,7 @@ export class StudentsComponent implements OnInit {
   isLoading = false;
 
   confirmDelete(id: string): void {
-    const confirmed = window.confirm('Esta seguro de Eliminar este registro?');
+    const confirmed = window.confirm('¿Esta seguro de eliminar este registro?');
 
     if (confirmed) {
       this.onDelete(id);

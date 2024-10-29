@@ -39,9 +39,6 @@ export class CourseDialogComponent {
     } else {
       this.matDialogRef.close({
         ...this.courseForm.value,
-        id: this.data?.editingCourse
-          ? this.data!.editingCourse!.id
-          : Math.random().toString(36).substr(2, 7),
       });
     }
   }

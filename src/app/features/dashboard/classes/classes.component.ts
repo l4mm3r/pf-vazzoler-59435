@@ -46,7 +46,9 @@ export class ClassesComponent implements OnInit{
                         if (editingClass) {
                             this.handleUpdate(editingClass.id, result);
                         } else {
-                            this.classes = [...this.classes, result];
+                            this.classesService.createClass(result).subscribe({
+                                next: () => this.loadClasses(),
+                            })
                         }
                     }
                 },

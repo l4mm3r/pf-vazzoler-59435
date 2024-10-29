@@ -1,5 +1,21 @@
 @if (isLoading) {
 <p>Cargando...</p>
 } @else {
-<p>Detalle del alumno: {{ student?.firstName + "" + student?.lastName }}</p>
+<div class="student-details" class="col-6 pt-5 mx-auto">
+    <mat-card appearance="outlined">
+        <mat-card-header>
+            <mat-card-title>
+                {{
+                    student?.firstName + "" + student?.lastName
+                }}</mat-card-title
+            >
+            <mat-card-subtitle> {{ student?.email }} </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Fecha de creacion: {{ student?.createdAt | date }}</p>
+            <p>Rol: {{ student?.role }}</p>
+        </mat-card-content>
+    </mat-card>
+</div>
+<br />
 }

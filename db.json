@@ -6,9 +6,19 @@
       "lastName": "Vazzoler",
       "email": "eduvazzo@mail.com",
       "password": "123456",
-      "role": "ADMIN",
+      "role": "admin",
       "token": "asdfh3482375aldfh8nv124sdg08925f23f23f",
       "createdAt": "2024-10-28"
+    },
+    {
+      "id": "7097",
+      "firstName": "milo",
+      "lastName": "vazzo",
+      "email": "milo@mail.com",
+      "role": "student",
+      "password": "qwqw1212",
+      "token": "sm0r6gqjlus",
+      "createdAt": "2024-10-29T17:27:07.700Z"
     }
   ],
   "courses": [
@@ -21,11 +31,6 @@
       "id": "asdf1h12",
       "courseName": "C++",
       "courseProfessor": "Hector Paniagua"
-    },
-    {
-      "id": "asfhgr314",
-      "courseName": "C#",
-      "courseProfessor": "Martin Rios"
     }
   ],
   "classes": [
