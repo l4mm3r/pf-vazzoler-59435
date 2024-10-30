@@ -29,27 +29,30 @@ export class LoginComponent {
     }
   }
 
+  doLogin(): void {
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (result) => {
+        this.router.navigate(['dashboard','home']);
+      },
+      error: (err) => {
+        if (err instanceof Error) {
+          alert(err.message);
+        }
+
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            alert('No hay conexión con el servidor');
+          }
+        }
+      }
+    });
+  }
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
     } else {
-      //login
-      this.authService.login(this.loginForm.value).subscribe({
-        next: (result) => {
-          this.router.navigate(['dashboard','home']);
-        },
-        error: (err) => {
-          if (err instanceof Error) {
-            alert(err.message);
-          }
-
-          if (err instanceof HttpErrorResponse) {
-            if (err.status === 0) {
-              alert('No hay conexión con el servidor');
-            }
-          }
-        }
-      });
+      this.doLogin();
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthData } from '../../features/auth/models';
-import { BehaviorSubject, Observable, of, throwError, map } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError, map, catchError } from 'rxjs';
 import { Student } from '../../features/dashboard/students/models';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -41,7 +41,7 @@ export class AuthService {
                     if (student) {
                         return student;
                     } else {
-                        throw throwError(() => new Error('Credenciales incorrectas'));
+                        throw new Error('Credenciales incorrectas');
                     }
                 })
             );
@@ -62,7 +62,7 @@ export class AuthService {
                 map((students) => {
                     const student = this.handleAuthentication(students);
                     return !!student
-                })
+                }),
             )
-        }
+    }
 }
