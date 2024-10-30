@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -28,22 +29,30 @@ export class LoginComponent {
     }
   }
 
+  doLogin(): void {
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (result) => {
+        this.router.navigate(['dashboard','home']);
+      },
+      error: (err) => {
+        if (err instanceof Error) {
+          alert(err.message);
+        }
+
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            alert('No hay conexión con el servidor');
+          }
+        }
+      }
+    });
+  }
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
     } else {
-      //login
-      this.authService.login(this.loginForm.value).subscribe({
-        next: (result) => {
-          this.router.navigate(['dashboard','home']);
-          console.log(result);
-        },
-        error: (err) => {
-          if (err instanceof Error) {
-            alert(err.message);
-          }
-        }
-      });
+      this.doLogin();
     }
   }
 }

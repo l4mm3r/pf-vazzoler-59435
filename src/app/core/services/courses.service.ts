@@ -1,47 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Course } from '../../features/dashboard/courses/models';
-import { Observable, of, delay, map } from 'rxjs';
+import { Observable, concatMap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
-let coursesDATABASE: Course[] = [
-  {
-    id: 'adae134',
-    courseName: 'Angular 18',
-    courseProfessor: 'Miguel Angel Duran',
-  },
-  {
-    id: 'adae234',
-    courseName: 'React 19',
-    courseProfessor: 'Roman Pipon',
-  },
-];
 
 @Injectable({ providedIn: 'root' })
+
 export class CoursesService {
+  constructor(private httpClient: HttpClient) {}
+
+  private baseURL = environment.baseURL;
 
   getCourses(): Observable<Course[]> {
-    return of([...coursesDATABASE]).pipe(delay(2000));
+    return this.httpClient.get<Course[]>(`${this.baseURL}/courses`)
   }
 
   removeCourseById(id: string): Observable<Course[]> {
-    coursesDATABASE = coursesDATABASE.filter((course) => course.id !== id);
-
-    return of(coursesDATABASE);
+    return this.httpClient.delete<Course[]>(`${this.baseURL}/courses/${id}`).pipe(concatMap(() => this.getCourses()));
   }
 
   updateCourseById(id: string, update:Partial<Course>) {
-    coursesDATABASE = coursesDATABASE.map((course) => course.id === id ? { ...course, ...update } : course);
-  
-    return of(coursesDATABASE);
+    return this.httpClient.patch<Course> (`${this.baseURL}/courses/${id}`, update).pipe(concatMap(() => this.getCourses()));
   }
 
 
   createCourse(course: Omit<Course, 'id'>): Observable<Course> {
-    const courseCreated = {
-      ...course,
-      id: Math.random().toString(36).substr(2, 7),
-    };
-    coursesDATABASE.push(courseCreated);
-
-    return of(courseCreated);
+    return this.httpClient.post<Course>(`${this.baseURL}/courses`, course)
   }
 }

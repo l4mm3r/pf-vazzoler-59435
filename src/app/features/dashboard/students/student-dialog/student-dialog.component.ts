@@ -15,6 +15,7 @@ interface UserDialogData {
 export class StudentDialogComponent {
   userForm: FormGroup;
 
+
   constructor(
     private matDialogRef: MatDialogRef<StudentDialogComponent>,
     private formBuilder: FormBuilder,
@@ -24,6 +25,8 @@ export class StudentDialogComponent {
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
+      role: [null, [Validators.required]],
+      password: [null, [Validators.required]],
     });
 
     this.patchFormValue();
@@ -41,12 +44,6 @@ export class StudentDialogComponent {
     } else {
       this.matDialogRef.close({
         ...this.userForm.value,
-        createdAt: this.data?.editingUser
-          ? this.data!.editingUser!.createdAt
-          : new Date(),
-        id: this.data?.editingUser
-          ? this.data!.editingUser!.id
-          : Math.random().toString(36).substr(2, 7),
       });
     }
   }

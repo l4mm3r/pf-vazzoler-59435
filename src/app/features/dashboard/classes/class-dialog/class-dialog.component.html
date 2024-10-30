@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>
+    {{ data?.editingClass ? "Editar curso" : "Crear curso" }}
+</h1>
+
+<div mat-dialog-content>
+    <form [formGroup]="classForm" class="w-100">
+        <div class="row">
+            <div class="col-6">
+                <mat-form-field appearance="fill">
+                    <mat-label>Nombre de la clase</mat-label>
+                    <input formControlName="className" matInput type="text" />
+                    <mat-error>
+                        @if (classForm.get("className")?.hasError("required")) {
+                        Campo obligatorio }
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-6">
+                <mat-form-field appearance="fill">
+                    <mat-label>Curso</mat-label>
+                    <mat-select formControlName="classCourse">
+                        <mat-option
+                            [value]="course.courseName"
+                            *ngFor="let course of courses$ | async"
+                        >
+                            {{ course.courseName }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>
+                        @if (classForm.get("classCourse")?.hasError("required"))
+                        { Campo obligatorio }
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+    <div class="mat-dialog-actions d-flex flex-row-reverse">
+        <button mat-button (click)="onSave()">Guardar</button>
+        <button mat-button mat-dialog-close>Cancelar</button>
+    </div>
+</div>

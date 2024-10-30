@@ -12,7 +12,7 @@ import { Student } from './students/models';
 export class DashboardComponent {
   showFiller = false;
   authStudent$: Observable<Student | null>
-
+  
   
   constructor(private router: Router, private authService: AuthService) {
     this.authStudent$ = this.authService.authStudent$;

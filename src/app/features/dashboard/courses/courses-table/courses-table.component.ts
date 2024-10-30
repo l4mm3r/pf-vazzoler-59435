@@ -48,7 +48,9 @@ export class CoursesTableComponent implements OnInit{
             if (editingCourse) {
               this.handleUpdate(editingCourse.id, result);
             } else {
-              this.courses = [...this.courses, result];
+              this.coursesService.createCourse(result).subscribe({
+                next: () => this.loadCourses(),
+              })
             }
           }
         },
@@ -79,7 +81,7 @@ export class CoursesTableComponent implements OnInit{
   }
 
   confirmDelete(id: string): void {
-    const confirmed = window.confirm('Esta seguro de Eliminar este registro?');
+    const confirmed = window.confirm('¿Esta seguro de eliminar este registro?');
 
     if(confirmed) {
       this.onDelete(id);
