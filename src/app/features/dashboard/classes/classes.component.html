@@ -1,11 +1,10 @@
 <div class="classes-container">
     <div class="classes-bar">
-        <h4 appHeaderSize>Clases</h4>
-
         <button mat-button (click)="openModal()">
             <mat-icon> add </mat-icon>
             Crear clase
         </button>
+        <h4 appHeaderSize>Clases</h4>
     </div>
 
     @if (isLoading) {
