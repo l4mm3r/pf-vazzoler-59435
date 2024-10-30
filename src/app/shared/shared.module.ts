@@ -15,6 +15,7 @@ import { StudentFullNamePipe } from './pipes/student-full-name.pipe';
 import { HeaderSizeDirective } from './directives/header-size.directive';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
+import { Student } from '../features/dashboard/students/models/index';
 
 @NgModule({
   declarations: [StudentFullNamePipe,  HeaderSizeDirective],
