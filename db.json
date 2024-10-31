@@ -19,16 +19,6 @@
       "password": "qwqw1212",
       "token": "sm0r6gqjlus",
       "createdAt": "2024-10-29T17:27:07.700Z"
-    },
-    {
-      "id": "c370",
-      "firstName": "test",
-      "lastName": "test",
-      "email": "test@mail.com",
-      "role": "student",
-      "password": "asdaAS12341!",
-      "token": "tarw9sgdfer",
-      "createdAt": "2024-10-31T14:29:57.824Z"
     }
   ],
   "courses": [
@@ -41,11 +31,6 @@
       "id": "asdf1h1",
       "courseName": "C++",
       "courseProfessor": "Hector Paniagua"
-    },
-    {
-      "id": "4b44",
-      "courseName": "teats",
-      "courseProfessor": "taeetat2"
     }
   ],
   "classes": [
