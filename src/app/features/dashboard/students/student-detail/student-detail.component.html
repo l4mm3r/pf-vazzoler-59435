@@ -2,8 +2,8 @@
 <p>Cargando...</p>
 } @else {
 <div class="student-details" class="col-6 pt-5 mx-auto">
-    <mat-card appearance="outlined">
-        <mat-card-header>
+    <mat-card appearance="outlined" class="text-center">
+        <mat-card-header class="justify-content-center">
             <mat-card-title>
                 {{
                     student?.firstName + "" + student?.lastName
@@ -11,9 +11,10 @@
             >
             <mat-card-subtitle> {{ student?.email }} </mat-card-subtitle>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content class="pt-3">
             <p>Fecha de creacion: {{ student?.createdAt | date }}</p>
             <p>Rol: {{ student?.role }}</p>
+            <p>Contraseña: {{ student?.password }}</p>
         </mat-card-content>
     </mat-card>
 </div>

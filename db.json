@@ -23,31 +23,31 @@
   ],
   "courses": [
     {
-      "id": "adhdaw131",
+      "id": "adhdaw12",
       "courseName": "Angular",
       "courseProfessor": "Caucho Flojo"
     },
     {
-      "id": "asdf1h12",
+      "id": "asdf1h1",
       "courseName": "C++",
       "courseProfessor": "Hector Paniagua"
     }
   ],
   "classes": [
     {
-      "id": "gergk1234",
+      "id": "gergk12",
       "className": "Promesas y Librerias",
       "classCourse": "Angular"
     },
     {
-      "id": "dhdhru123",
+      "id": "d241253",
       "className": "Pipes y Servicios",
       "classCourse": "c++"
     },
     {
-      "id": "fhfhefa12",
-      "className": "Clases de POO",
-      "classCourse": "C#"
+      "id": "wo8m7ui",
+      "className": "Diseño Redux",
+      "classCourse": "Angular"
     }
   ]
 }
