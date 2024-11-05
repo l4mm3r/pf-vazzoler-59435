@@ -5,54 +5,58 @@ import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  passwordInputType: 'password' | 'text' = 'password';
+    passwordInputType: 'password' | 'text' = 'password';
 
-  loginForm: FormGroup;
+    loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-    })
-  }
-
-  togglePasswordVisibility(): void {
-    if (this.passwordInputType === 'password') {
-      this.passwordInputType = 'text';
-    } else {
-      this.passwordInputType = 'password';
+    constructor(
+        private formBuilder: FormBuilder,
+        private authService: AuthService,
+        private router: Router,
+    ) {
+        this.loginForm = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required]],
+        });
     }
-  }
 
-  doLogin(): void {
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (result) => {
-        this.router.navigate(['dashboard','home']);
-      },
-      error: (err) => {
-        if (err instanceof Error) {
-          alert(err.message);
+    togglePasswordVisibility(): void {
+        if (this.passwordInputType === 'password') {
+            this.passwordInputType = 'text';
+        } else {
+            this.passwordInputType = 'password';
         }
-
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 0) {
-            alert('No hay conexión con el servidor');
-          }
-        }
-      }
-    });
-  }
-
-  onSubmit(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-    } else {
-      this.doLogin();
     }
-  }
+
+    doLogin(): void {
+        this.authService.login(this.loginForm.value).subscribe({
+            next: (result) => {
+                this.router.navigate(['dashboard', 'home']);
+            },
+            error: (err) => {
+                if (err instanceof Error) {
+                    alert(err.message);
+                }
+
+                if (err instanceof HttpErrorResponse) {
+                    if (err.status === 0) {
+                        alert('No hay conexión con el servidor');
+                    }
+                }
+            },
+        });
+    }
+
+    onSubmit(): void {
+        if (this.loginForm.invalid) {
+            this.loginForm.markAllAsTouched();
+        } else {
+            this.doLogin();
+        }
+    }
 }

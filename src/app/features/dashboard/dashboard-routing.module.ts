@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RoleGuard } from '../../core/guards/role.guard';
 
 const routes: Routes = [
     {
@@ -11,6 +12,7 @@ const routes: Routes = [
         path: 'students',
         loadChildren: () =>
             import('./students/students.module').then((m) => m.StudentsModule),
+        canActivate: [RoleGuard],
     },
     {
         path: 'courses',
