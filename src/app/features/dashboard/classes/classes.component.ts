@@ -4,57 +4,67 @@ import { Class } from './models';
 import { MatDialog } from '@angular/material/dialog';
 import { ClassDialogComponent } from './class-dialog/class-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, finalize, of } from 'rxjs';
+import { catchError, finalize, Observable, of } from 'rxjs';
+import { AuthService } from '../../../core/services/auth.service';
+import { Student } from '../students/models';
 
 @Component({
     selector: 'app-classes',
     templateUrl: './classes.component.html',
     styleUrl: './classes.component.scss',
 })
-export class ClassesComponent implements OnInit{
+export class ClassesComponent implements OnInit {
     classes: Class[] = [];
     displayedColumns: string[] = ['id', 'name', 'course', 'actions'];
+    authStudent$: Observable<Student | null>;
 
     constructor(
         private matDialog: MatDialog,
         private classesService: ClassesService,
         private snackBar: MatSnackBar,
-    ){}
+        private authService: AuthService,
+    ) {
+        this.authStudent$ = this.authService.authStudent$;
+    }
 
     isLoading = false;
-    
+
     private showError(message: string): void {
         this.snackBar.open(message, 'Cerrar', {
             duration: 5000,
             horizontalPosition: 'end',
             verticalPosition: 'top',
-        })
+        });
     }
 
     ngOnInit(): void {
         this.loadClasses();
     }
-    
 
     loadClasses(): void {
         this.isLoading = true;
-        this.classesService.getClasses().pipe(
-            catchError((error) => {
-                this.showError('Error al cargar las clases. Por favor, intente nuevamente');
-                console.error('Error cargando las clases', error);
-                return of([])
-            }),
-            finalize(() => {
-                this.isLoading = false;
-            })
-        ).subscribe({
-            next: (classes) => {
-                this.classes = classes;
-            }
-        });
+        this.classesService
+            .getClasses()
+            .pipe(
+                catchError((error) => {
+                    this.showError(
+                        'Error al cargar las clases. Por favor, intente nuevamente',
+                    );
+                    console.error('Error cargando las clases', error);
+                    return of([]);
+                }),
+                finalize(() => {
+                    this.isLoading = false;
+                }),
+            )
+            .subscribe({
+                next: (classes) => {
+                    this.classes = classes;
+                },
+            });
     }
 
-    openModal(editingClass?: Class): void{
+    openModal(editingClass?: Class): void {
         this.matDialog
             .open(ClassDialogComponent, { data: { editingClass } })
             .afterClosed()
@@ -73,79 +83,101 @@ export class ClassesComponent implements OnInit{
 
     private handleCreate(newClass: Class): void {
         this.isLoading = true;
-        this.classesService.createClass(newClass).pipe(
-            catchError((error) => {
-                this.showError('Error al crear la clase. Por favor, intente nuevamente');
-                console.error('Error creando la clase', error);
-                return of(null);
-            }),
-            finalize(() => {
-                this.isLoading = false;
-            })
-        ).subscribe({
-            next: (result) => {
-                this.loadClasses();
-                this.snackBar.open('Clase creada exitosamente', 'Cerrar', {
-                    duration: 3000
-                });
-            }
-        });
+        this.classesService
+            .createClass(newClass)
+            .pipe(
+                catchError((error) => {
+                    this.showError(
+                        'Error al crear la clase. Por favor, intente nuevamente',
+                    );
+                    console.error('Error creando la clase', error);
+                    return of(null);
+                }),
+                finalize(() => {
+                    this.isLoading = false;
+                }),
+            )
+            .subscribe({
+                next: (result) => {
+                    this.loadClasses();
+                    this.snackBar.open('Clase creada exitosamente', 'Cerrar', {
+                        duration: 3000,
+                    });
+                },
+            });
     }
 
     handleUpdate(id: string, update: Class): void {
         this.isLoading = true;
-        this.classesService.updateClassById(id, update).pipe(
-            catchError((error) => {
-                this.showError('Error al actualizar la clase. Por favor, intente nuevamente');
-                console.error('Error actualizando la clase', error);
-                return of(null);
-            }),
-            finalize(() => {
-                this.isLoading = false;
-            })
-        ).subscribe({
-            next: (response) => {
-                if (Array.isArray(response)){
-                    this.classes = response;
-                    this.snackBar.open('Clase actualizada exitosamente', 'Cerrar', {
-                        duration: 3000
-                    });
-                }
-        }  
-        });
+        this.classesService
+            .updateClassById(id, update)
+            .pipe(
+                catchError((error) => {
+                    this.showError(
+                        'Error al actualizar la clase. Por favor, intente nuevamente',
+                    );
+                    console.error('Error actualizando la clase', error);
+                    return of(null);
+                }),
+                finalize(() => {
+                    this.isLoading = false;
+                }),
+            )
+            .subscribe({
+                next: (response) => {
+                    if (Array.isArray(response)) {
+                        this.classes = response;
+                        this.snackBar.open(
+                            'Clase actualizada exitosamente',
+                            'Cerrar',
+                            {
+                                duration: 3000,
+                            },
+                        );
+                    }
+                },
+            });
     }
-
 
     onDelete(id: string): void {
         this.isLoading = true;
-        this.classesService.removeClassById(id).pipe(
-            catchError((error) => {
-                this.showError('Error al eliminar la clase. Por favor, intente nuevamente');
-                console.error('Error eliminando la clase', error);
-                return of(null);
-            }),
-            finalize(() => {
-                this.isLoading = false;
-            })
-        ).subscribe({
-            next: (response) => {
-                if (Array.isArray(response)) {
-                    this.classes = response;
-                    this.snackBar.open('Clase eliminada exitosamente', 'Cerrar', {
-                        duration: 3000
-                    })
-                }
-            }
-        })
+        this.classesService
+            .removeClassById(id)
+            .pipe(
+                catchError((error) => {
+                    this.showError(
+                        'Error al eliminar la clase. Por favor, intente nuevamente',
+                    );
+                    console.error('Error eliminando la clase', error);
+                    return of(null);
+                }),
+                finalize(() => {
+                    this.isLoading = false;
+                }),
+            )
+            .subscribe({
+                next: (response) => {
+                    if (Array.isArray(response)) {
+                        this.classes = response;
+                        this.snackBar.open(
+                            'Clase eliminada exitosamente',
+                            'Cerrar',
+                            {
+                                duration: 3000,
+                            },
+                        );
+                    }
+                },
+            });
     }
 
     confirmDelete(id: string): void {
-        const confirmed = window.confirm('¿Está seguro de Eliminar este registro?');
+        const confirmed = window.confirm(
+            '¿Está seguro de Eliminar este registro?',
+        );
 
-        if(confirmed) {
+        if (confirmed) {
             this.onDelete(id);
         }
     }
-
-
 }

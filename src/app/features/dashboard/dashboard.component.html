@@ -34,6 +34,14 @@
                 mat-list-item
                 >Clases</a
             >
+            <a
+                routerLinkActive
+                #inscriptionsLink="routerLinkActive"
+                [activated]="inscriptionsLink.isActive"
+                routerLink="inscriptions"
+                mat-list-item
+                >Inscripciones</a
+            >
             <a (click)="logout()" mat-list-item>Cerrar Sesion</a>
         </mat-nav-list>
     </mat-drawer>

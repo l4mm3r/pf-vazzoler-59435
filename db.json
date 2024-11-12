@@ -35,19 +35,23 @@
   ],
   "classes": [
     {
-      "id": "gergk12",
-      "className": "Promesas y Librerias",
-      "classCourse": "Angular"
-    },
-    {
-      "id": "d241253",
-      "className": "Pipes y Servicios",
-      "classCourse": "c++"
-    },
-    {
       "id": "wo8m7ui",
       "className": "Diseño Redux",
       "classCourse": "Angular"
+    }
+  ],
+  "inscriptions": [
+    {
+      "id": "asdfh14",
+      "studentId": "6993",
+      "classId": "wo8m7ui",
+      "courseId": "asdf1h1"
+    },
+    {
+      "id": "c825",
+      "courseId": "asdf1h1",
+      "studentId": "7097",
+      "classId": "wo8m7ui"
     }
   ]
 }

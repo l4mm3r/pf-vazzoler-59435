@@ -1,0 +1,45 @@
+<form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <mat-label>Curso</mat-label>
+        <mat-select formControlName="courseId">
+            <mat-option
+                [value]="course.id"
+                *ngFor="let course of courseOptions$ | async"
+            >
+                {{ course.courseName }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Clase</mat-label>
+        <mat-select formControlName="classId">
+            <mat-option
+                [value]="class.id"
+                *ngFor="let class of classOptions$ | async"
+            >
+                {{ class.className }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Alumno</mat-label>
+        <mat-select formControlName="studentId">
+            <mat-option
+                [value]="student.id"
+                *ngFor="let student of studentOptions$ | async"
+            >
+                {{ student.firstName + " " + student.lastName }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-flat-button type="submit">Inscribir</button>
+</form>
+
+<ng-container *ngIf="loadInscriptionsError$ | async as error">
+    <h6>Ha ocurrido un error al cargar las inscripciones</h6>
+    <p>{{ error["message"] }}</p>
+</ng-container>
+
+<pre *ngIf="!(loadInscriptionsError$ | async)">{{
+    inscriptions$ | async | json
+}}</pre>

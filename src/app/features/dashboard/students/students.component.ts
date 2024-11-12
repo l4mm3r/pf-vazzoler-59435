@@ -5,7 +5,8 @@ import { Student } from './models';
 import { StudentsService } from '../../../core/services/students.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, finalize, of } from 'rxjs';
+import { catchError, finalize, Observable, of } from 'rxjs';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
     selector: 'app-students',
@@ -22,14 +23,17 @@ export class StudentsComponent implements OnInit {
     ];
     dataSource: Student[] = [];
     isLoading = false;
-
+    authStudent$: Observable<Student | null>;
     constructor(
         private matDialog: MatDialog,
         private studentsService: StudentsService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private snackBar: MatSnackBar,
-    ) {}
+        private authService: AuthService,
+    ) {
+        this.authStudent$ = this.authService.authStudent$;
+    }
 
     ngOnInit(): void {
         this.loadStudents();
