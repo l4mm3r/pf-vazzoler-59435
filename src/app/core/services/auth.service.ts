@@ -11,7 +11,6 @@ import { selectAuthenticatedStudent } from '../../store/selectors/auth.selectors
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    // private _authStudent$ = new BehaviorSubject<null | Student>(null);
     public authStudent$: Observable<Student | null>;
     private BaseURL = environment.baseURL;
 
@@ -35,7 +34,6 @@ export class AuthService {
         }
     }
 
-
     login(data: AuthData): Observable<Student> {
         return this.httpClient
             .get<
@@ -54,7 +52,6 @@ export class AuthService {
     }
 
     logout() {
-        // this._authStudent$.next(null);
         this.store.dispatch(AuthActions.unsetAuthenticatedStudent()),
             this.router.navigate(['auth', 'login']);
         localStorage.removeItem('token');
@@ -72,5 +69,4 @@ export class AuthService {
                 }),
             );
     }
-
 }
