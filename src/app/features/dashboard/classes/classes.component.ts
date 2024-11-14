@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, finalize, Observable, of } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { Student } from '../students/models';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-classes',
@@ -23,6 +24,8 @@ export class ClassesComponent implements OnInit {
         private classesService: ClassesService,
         private snackBar: MatSnackBar,
         private authService: AuthService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
     ) {
         this.authStudent$ = this.authService.authStudent$;
     }
@@ -169,6 +172,16 @@ export class ClassesComponent implements OnInit {
                     }
                 },
             });
+    }
+
+    goToDetail(id: string): void {
+        try {
+            this.router.navigate(['detail', id], {
+                relativeTo: this.activatedRoute,
+            });
+        } catch (error) {
+            console.error('Error al navegar al detalle del alumno', error);
+        }
     }
 
     confirmDelete(id: string): void {

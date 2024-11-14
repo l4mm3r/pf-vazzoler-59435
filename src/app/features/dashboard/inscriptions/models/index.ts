@@ -1,4 +1,5 @@
 import { Class } from '../../classes/models';
+import { Course } from '../../courses/models';
 import { Student } from '../../students/models';
 
 export interface Inscription {
@@ -7,5 +8,6 @@ export interface Inscription {
     courseId: string;
     classId: string;
     student?: Student;
-    classCourse?: Class;
+    course?: Course;
+    class?: Class;
 }

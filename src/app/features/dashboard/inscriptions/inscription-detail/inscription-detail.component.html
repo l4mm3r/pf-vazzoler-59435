@@ -1,0 +1,61 @@
+@if (isLoading) {
+    <p>Cargando...</p>
+} @else {
+    <div class="inscription-details" class="col-6 pt-5 mx-auto">
+        <mat-card appearance="outlined" class="text-center">
+            <mat-card-header class="justify-content-center">
+                <mat-card-title> Informacion del Alumno</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <ul>
+                    <li>
+                        Nombre completo:
+                        {{
+                            inscription?.student?.firstName +
+                                " " +
+                                inscription?.student?.lastName
+                        }}
+                    </li>
+                    <li>
+                        Correo electronico: {{ inscription?.student?.email }}
+                    </li>
+                    <li>Contraseña: {{ inscription?.student?.password }}</li>
+                    <li>Rol: {{ inscription?.student?.role }}</li>
+                </ul>
+            </mat-card-content>
+
+            <mat-card-header class="justify-content-center">
+                <mat-card-title> Informacion del Curso</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <ul>
+                    <li>
+                        Nombre del curso: {{ inscription?.course?.courseName }}
+                    </li>
+                    <li>
+                        Porfesor: {{ inscription?.course?.courseProfessor }}
+                    </li>
+                </ul>
+            </mat-card-content>
+
+            <mat-card-header class="justify-content-center">
+                <mat-card-title> Informacion de la clase</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <ul>
+                    <li>
+                        Nombre de la clase: {{ inscription?.class?.className }}
+                    </li>
+                    <li>
+                        Curso al que corresponde:
+                        {{ inscription?.class?.classCourse }}
+                    </li>
+                </ul>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <br />
+}

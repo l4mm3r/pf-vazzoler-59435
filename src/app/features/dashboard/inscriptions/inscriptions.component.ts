@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { InscriptionActions } from './store/inscription.actions';
 import { Inscription } from './models';
-import { Observable } from 'rxjs';
+import { catchError, finalize, map, Observable, of } from 'rxjs';
 import {
     selectClassOptions,
     selectCourseOptions,
@@ -14,6 +14,10 @@ import { Course } from '../courses/models';
 import { Student } from '../students/models';
 import { Class } from '../classes/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { InscriptionsService } from '../../../core/services/inscriptions.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-inscriptions',
@@ -27,10 +31,17 @@ export class InscriptionsComponent implements OnInit {
     classOptions$: Observable<Class[]>;
     loadInscriptionsError$: Observable<Error | null>;
     inscriptionForm: FormGroup;
+    displayedColumns = ['courseName', 'className', 'studentName', 'actions'];
+    isLoading = false;
 
     constructor(
+        private matDialog: MatDialog,
         private store: Store,
         private formBuilder: FormBuilder,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        private inscriptionsService: InscriptionsService,
+        private snackBar: MatSnackBar,
     ) {
         this.inscriptionForm = this.formBuilder.group({
             courseId: [null, [Validators.required]],
@@ -51,6 +62,11 @@ export class InscriptionsComponent implements OnInit {
         this.store.dispatch(InscriptionActions.loadOptions());
     }
 
+    private showError(message: string): void {
+        this.snackBar.open(message, undefined, {
+            duration: 3000,
+        });
+    }
     onSubmit(): void {
         if (this.inscriptionForm.invalid) {
             this.inscriptionForm.markAllAsTouched();
@@ -61,6 +77,54 @@ export class InscriptionsComponent implements OnInit {
                 ),
             );
             this.inscriptionForm.reset();
+        }
+    }
+
+    onDelete(id: string): void {
+        this.isLoading = true;
+        this.inscriptionsService
+            .removeUserById(id)
+            .pipe(
+                catchError((error) => {
+                    this.showError(
+                        'Error al eliminar la inscripcion. Por favor, intente nuevamente',
+                    );
+                    console.error('Error al eliminar la inscripcion', error);
+                    return of(null);
+                }),
+                finalize(() => {
+                    this.isLoading = false;
+                }),
+            )
+            .subscribe({
+                next: (result) => {
+                    this.store.dispatch(InscriptionActions.loadInscriptions());
+                    this.snackBar.open(
+                        'Inscripcion eliminada exitosamente',
+                        'Cerrar',
+                        {
+                            duration: 3000,
+                        },
+                    );
+                },
+            });
+    }
+    confirmDelete(id: string): void {
+        const confirmed = window.confirm(
+            '¿Esta seguro de eliminar este registro?',
+        );
+
+        if (confirmed) {
+            this.onDelete(id);
+        }
+    }
+    goToDetail(id: string): void {
+        try {
+            this.router.navigate(['detail', id], {
+                relativeTo: this.activatedRoute,
+            });
+        } catch (error) {
+            console.error('Error al navegar al detalle del alumno', error);
         }
     }
 }

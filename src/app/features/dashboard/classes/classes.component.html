@@ -38,6 +38,9 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>Acciones</th>
                 <td mat-cell *matCellDef="let class">
+                    <button mat-icon-button (click)="goToDetail(class.id)">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
                     <button
                         [disabled]="(authStudent$ | async)?.role !== 'admin'"
                         mat-icon-button

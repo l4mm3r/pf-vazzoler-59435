@@ -12,46 +12,117 @@
     },
     {
       "id": "7097",
-      "firstName": "milo",
-      "lastName": "vazzo",
+      "firstName": "Milo",
+      "lastName": "Vazzo",
       "email": "milo@mail.com",
       "role": "student",
-      "password": "qwqw1212",
+      "password": "Soyunbobo123!",
       "token": "sm0r6gqjlus",
       "createdAt": "2024-10-29T17:27:07.700Z"
+    },
+    {
+      "id": "c56d",
+      "firstName": "Martin",
+      "lastName": "Alba",
+      "email": "alba@mail.com",
+      "role": "student",
+      "password": "Soybobo123!",
+      "token": "ayzrc4hyvdu",
+      "createdAt": "2024-11-12T18:12:25.909Z"
+    },
+    {
+      "id": "1aeb",
+      "firstName": "Rafael",
+      "lastName": "Martins",
+      "email": "rafa@mail.com",
+      "role": "student",
+      "password": "Soyunbobo123!",
+      "token": "3m6m19cha0h",
+      "createdAt": "2024-11-12T18:12:51.706Z"
+    },
+    {
+      "id": "42e1",
+      "firstName": "Darlan",
+      "lastName": "Perez",
+      "email": "darlan@mail.com",
+      "role": "admin",
+      "password": "Soyunbobo123!",
+      "token": "wbrkmixnbs",
+      "createdAt": "2024-11-12T18:13:16.035Z"
     }
   ],
   "courses": [
     {
-      "id": "adhdaw12",
+      "id": "414j",
       "courseName": "Angular",
       "courseProfessor": "Caucho Flojo"
     },
     {
-      "id": "asdf1h1",
+      "id": "1fl3",
       "courseName": "C++",
       "courseProfessor": "Hector Paniagua"
+    },
+    {
+      "id": "3b8b",
+      "courseName": "ReactJs",
+      "courseProfessor": "Martin Perez di Salvio"
+    },
+    {
+      "id": "dac0",
+      "courseName": "Docker",
+      "courseProfessor": "Chester Bennington"
+    },
+    {
+      "id": "de1c",
+      "courseName": "Java",
+      "courseProfessor": "Vilson Jr"
     }
   ],
   "classes": [
     {
-      "id": "wo8m7ui",
+      "id": "54j6",
       "className": "Diseño Redux",
       "classCourse": "Angular"
+    },
+    {
+      "id": "azosjhu",
+      "className": "Scss",
+      "classCourse": "Angular"
+    },
+    {
+      "id": "c59re5w",
+      "className": "POO",
+      "classCourse": "Java"
+    },
+    {
+      "id": "6yzpqyc",
+      "className": "Clases",
+      "classCourse": "ReactJs"
+    },
+    {
+      "id": "pnmz8c6",
+      "className": "Funciones",
+      "classCourse": "Docker"
     }
   ],
   "inscriptions": [
     {
-      "id": "asdfh14",
-      "studentId": "6993",
-      "classId": "wo8m7ui",
-      "courseId": "asdf1h1"
+      "id": "f420",
+      "courseId": "de1c",
+      "studentId": "1aeb",
+      "classId": "6yzpqyc"
     },
     {
-      "id": "c825",
-      "courseId": "asdf1h1",
-      "studentId": "7097",
-      "classId": "wo8m7ui"
+      "id": "11a3",
+      "courseId": "de1c",
+      "studentId": "42e1",
+      "classId": "c59re5w"
+    },
+    {
+      "id": "c791",
+      "courseId": "dac0",
+      "studentId": "1aeb",
+      "classId": "c59re5w"
     }
   ]
 }

@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, finalize, Observable, of } from 'rxjs';
 import { Student } from '../../students/models';
 import { AuthService } from '../../../../core/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-courses-table',
@@ -21,6 +22,8 @@ export class CoursesTableComponent implements OnInit {
     isLoading = false;
     authStudent$: Observable<Student | null>;
     constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private matDialog: MatDialog,
         private coursesService: CoursesService,
         private snackBar: MatSnackBar,
@@ -177,6 +180,16 @@ export class CoursesTableComponent implements OnInit {
                     }
                 },
             });
+    }
+
+    goToDetail(id: string): void {
+        try {
+            this.router.navigate(['detail', id], {
+                relativeTo: this.activatedRoute,
+            });
+        } catch (error) {
+            console.error('Error al navegar al detalle del alumno', error);
+        }
     }
 
     confirmDelete(id: string): void {

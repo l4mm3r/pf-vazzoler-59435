@@ -1,0 +1,21 @@
+@if (isLoading) {
+    <p>Cargando...</p>
+} @else {
+    <div class="class-details" class="col-6 pt-5 mx-auto">
+        <mat-card appearance="outlined" class="text-center">
+            <mat-card-header class="justify-content-center">
+                <mat-card-title
+                    >Nombre del clase: {{ class?.className }}</mat-card-title
+                >
+                <mat-card-subtitle>
+                    Corresponde al curso de:
+                    {{ class?.classCourse }}</mat-card-subtitle
+                >
+            </mat-card-header>
+            <mat-card-content class="pt-3">
+                <p>Id de la clase: {{ class?.id }}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <br />
+}

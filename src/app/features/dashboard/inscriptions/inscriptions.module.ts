@@ -7,9 +7,10 @@ import { InscriptionEffects } from './store/inscription.effects';
 import { inscriptionFeature } from './store/inscription.reducer';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '../../../shared/shared.module';
+import { InscriptionDetailComponent } from './inscription-detail/inscription-detail.component';
 
 @NgModule({
-    declarations: [InscriptionsComponent],
+    declarations: [InscriptionsComponent, InscriptionDetailComponent],
     imports: [
         SharedModule,
         CommonModule,
